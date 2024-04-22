@@ -1,3 +1,4 @@
+//fixation images et textes du slider
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -17,16 +18,29 @@ const slides = [
 	}
 ];
 
+//variables fixées avec element html
 let currentSlide = 0;
 const tagLineElement = document.getElementById('tagLine');
 const bannerImageElement = document.querySelector('.banner-img');
+const dotsContainer = document.querySelector('.dots');
 
+// fonction pour afficher une diapositive spécifique
 function showSlide(slideIndex) {
     const slide = slides[slideIndex];
     bannerImageElement.src = `./ASSETS/images/slideshow/${slide.image}`;
     tagLineElement.innerHTML = slide.tagLine;
+	//effet sur les dots (actif ou non)
+	const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, index) => {
+        if (index === slideIndex) {
+            dot.classList.add('dot_selected');
+        } else {
+            dot.classList.remove('dot_selected');
+        }
+    });
 }
 
+//fonctions pour les diapositive précédentes et suivantes
 function nextSlide() {
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
@@ -34,6 +48,20 @@ function nextSlide() {
 
 function prevSlide() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+// Générer les dots
+slides.forEach((slide, index) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    dot.setAttribute('onclick', `goToSlide(${index})`);
+    dotsContainer.appendChild(dot);
+});
+
+// Fonction pour aller à une diapositive spécifique lorsqu'un dot est cliqué
+function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
     showSlide(currentSlide);
 }
 
