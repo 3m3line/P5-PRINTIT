@@ -20,15 +20,18 @@ const slides = [
 
 //variables fixées avec element html
 let currentSlide = 0;
-const tagLineElement = document.getElementById('tagLine');
 const bannerImageElement = document.querySelector('.banner-img');
+const parentElementtagLine = document.querySelector('#banner');
+const tagLineElement = document.createElement('p');
 const dotsContainer = document.querySelector('.dots');
 
 // fonction pour afficher une diapositive spécifique
 function showSlide(slideIndex) {
+    console.log('Affichage de la diapo n° :', slideIndex);
     const slide = slides[slideIndex];
     bannerImageElement.src = `./ASSETS/images/slideshow/${slide.image}`;
     tagLineElement.innerHTML = slide.tagLine;
+    parentElementtagLine.appendChild(tagLineElement);
 	//effet sur les dots (actif ou non)
 	const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, index) => {
@@ -44,11 +47,13 @@ function showSlide(slideIndex) {
 function nextSlide() {
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
+    console.log('Passage à la diapo suivante.');
 }
 
 function prevSlide() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
     showSlide(currentSlide);
+    console.log('Passage à la diapo précédente.');
 }
 
 // Générer les dots
@@ -57,12 +62,14 @@ slides.forEach((slide, index) => {
     dot.classList.add('dot');
     dot.setAttribute('onclick', `goToSlide(${index})`);
     dotsContainer.appendChild(dot);
+    console.log('Dot pour la diapositive numéro :', index);
 });
 
 // Fonction pour aller à une diapositive spécifique lorsqu'un dot est cliqué
 function goToSlide(slideIndex) {
     currentSlide = slideIndex;
     showSlide(currentSlide);
+    console.log('Passage à la diapo n° :', slideIndex);
 }
 
 // Initialisation du premier slide
