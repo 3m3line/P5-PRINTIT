@@ -29,7 +29,7 @@ const dotsContainer = document.querySelector('.dots');
 function showSlide(slideIndex) {
     console.log('Affichage de la diapo n° :', slideIndex);
     const slide = slides[slideIndex];
-    bannerImageElement.src = `./ASSETS/images/slideshow/${slide.image}`;
+    bannerImageElement.src = `https://3m3line.github.io/P5-PRINTIT/ASSETS/images/slideshow/${slide.image}`;
     tagLineElement.innerHTML = slide.tagLine;
     parentElementtagLine.appendChild(tagLineElement);
 	//effet sur les dots (actif ou non)
